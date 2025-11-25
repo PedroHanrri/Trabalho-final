@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Sistema de Gestão Empresarial</title>
+
+    <link href="src/css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Login -->
+    <div id="login-container">
+        <div class="login-box">
+            <h2>Sistema de Gestão Empresarial</h2>
+            <div class="input-group">
+                <label>Email</label>
+                <input id="email" placeholder="seu@email.com" type="email" />
+            </div>
+            <div class="input-group">
+                <label>Senha</label>
+                <input id="password" placeholder="••••••••" type="password" />
+            </div>
+            <button class="btn btn-primary" onclick="login()">Entrar</button>
+            <p class="msg-error" id="msg-login"></p>
+        </div>
+    </div>
+
+    <!-- App -->
+    <div class="container" id="app-container">
+        <div class="header">
+            <h1>Sistema de Gestão Empresarial</h1>
+            <button class="btn-logout" onclick="logout()">Sair</button>
+        </div>
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('produtos')">Produtos</button>
+            <button class="tab-btn" onclick="switchTab('clientes')">Clientes</button>
+            <button class="tab-btn" onclick="switchTab('fornecedores')">Fornecedores</button>
+        </div>
+        <!-- Tab Produtos -->
+        <div class="tab-content active" id="tab-produtos">
+            <div class="card">
+                <h3>Cadastrar Produto</h3>
+                <div class="form-grid">
+                    <input id="prod-nome" placeholder="Nome do produto" type="text" />
+                    <input id="prod-quantidade" placeholder="Quantidade" type="number" />
+                    <input id="prod-preco" placeholder="Preço (R$)" step="0.01" type="number" />
+                    <input id="prod-categoria" placeholder="Categoria" type="text" />
+                </div>
+                <button class="btn-add" onclick="addProduto()">Adicionar Produto</button>
+            </div>
+            <div class="card">
+                <h3>Lista de Produtos</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Quantidade</th>
+                                <th>Preço</th>
+                                <th>Categoria</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-produtos"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Tab Clientes -->
+        <div class="tab-content" id="tab-clientes">
+            <div class="card">
+                <h3>Cadastrar Cliente</h3>
+                <div class="form-grid">
+                    <input id="cli-nome" placeholder="Nome completo" type="text" />
+                    <input id="cli-email" placeholder="Email" type="email" />
+                    <input id="cli-telefone" placeholder="Telefone" type="text" />
+                    <input id="cli-cpf" placeholder="CPF" type="text" />
+                    <input id="cli-cidade" placeholder="Cidade" type="text" />
+                </div>
+                <button class="btn-add" onclick="addCliente()">Adicionar Cliente</button>
+            </div>
+            <div class="card">
+                <h3>Lista de Clientes</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Telefone</th>
+                                <th>CPF</th>
+                                <th>Cidade</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-clientes"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Tab Fornecedores -->
+        <div class="tab-content" id="tab-fornecedores">
+            <div class="card">
+                <h3>Cadastrar Fornecedor</h3>
+                <div class="form-grid">
+                    <input id="forn-nome" placeholder="Nome da empresa" type="text" />
+                    <input id="forn-cnpj" placeholder="CNPJ" type="text" />
+                    <input id="forn-email" placeholder="Email" type="email" />
+                    <input id="forn-telefone" placeholder="Telefone" type="text" />
+                    <input id="forn-cidade" placeholder="Cidade" type="text" />
+                    <input id="forn-produto" placeholder="Produto fornecido" type="text" />
+                </div>
+                <button class="btn-add" onclick="addFornecedor()">Adicionar Fornecedor</button>
+            </div>
+            <div class="card">
+                <h3>Lista de Fornecedores</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>CNPJ</th>
+                                <th>Email</th>
+                                <th>Telefone</th>
+                                <th>Cidade</th>
+                                <th>Produto</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-fornecedores"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Editar Produto -->
+    <div class="modal" id="modal-edit-produto">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Editar Produto</h3>
+                <button class="btn-close" onclick="closeModal('produto')">×</button>
+            </div>
+            <div class="modal-body">
+                <label>Nome</label>
+                <input id="edit-prod-nome" type="text" />
+                <label>Quantidade</label>
+                <input id="edit-prod-quantidade" type="number" />
+                <label>Preço</label>
+                <input id="edit-prod-preco" step="0.01" type="number" />
+                <label>Categoria</label>
+                <input id="edit-prod-categoria" type="text" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('produto')">Cancelar</button>
+                <button class="btn-save" onclick="saveProduto()">Salvar</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Editar Cliente -->
+    <div class="modal" id="modal-edit-cliente">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Editar Cliente</h3>
+                <button class="btn-close" onclick="closeModal('cliente')">×</button>
+            </div>
+            <div class="modal-body">
+                <label>Nome</label>
+                <input id="edit-cli-nome" type="text" />
+                <label>Email</label>
+                <input id="edit-cli-email" type="email" />
+                <label>Telefone</label>
+                <input id="edit-cli-telefone" type="text" />
+                <label>CPF</label>
+                <input id="edit-cli-cpf" type="text" />
+                <label>Cidade</label>
+                <input id="edit-cli-cidade" type="text" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('cliente')">Cancelar</button>
+                <button class="btn-save" onclick="saveCliente()">Salvar</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Editar Fornecedor -->
+    <div class="modal" id="modal-edit-fornecedor">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Editar Fornecedor</h3>
+                <button class="btn-close" onclick="closeModal('fornecedor')">×</button>
+            </div>
+            <div class="modal-body">
+                <label>Nome</label>
+                <input id="edit-forn-nome" type="text" />
+                <label>CNPJ</label>
+                <input id="edit-forn-cnpj" type="text" />
+                <label>Email</label>
+                <input id="edit-forn-email" type="email" />
+                <label>Telefone</label>
+                <input id="edit-forn-telefone" type="text" />
+                <label>Cidade</label>
+                <input id="edit-forn-cidade" type="text" />
+                <label>Produto</label>
+                <input id="edit-forn-produto" type="text" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('fornecedor')">Cancelar</button>
+                <button class="btn-save" onclick="saveFornecedor()">Salvar</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="src/js/app.js"></script>
+</body>
+
+</html>
