@@ -6,7 +6,7 @@ O sistema permite gerenciar **Produtos**, **Clientes** e **Fornecedores** por me
 
 # 🚀 Acesso ao Sistema
 
-🔗 **Sistema publicado:** *https://github.com/PedroHanrri/Trabalho-final*  
+🔗 **Sistema publicado:** *https://pedrohanrri.github.io/Trabalho-final/*  
 GitHub Pages.
 
 ---
@@ -160,6 +160,7 @@ const SUPABASE_KEY = "YOUR_SUPABASE_ANON_KEY";
 
 Pedro Hanrri
 Desenvolvedor do sistema e organizador do repositório.
+
 
 
 
