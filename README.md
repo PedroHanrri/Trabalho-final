@@ -11,6 +11,13 @@ GitHub Pages.
 
 ---
 
+# Testar o sistema
+entre com esse login
+- email:admin@gmail.com
+- senha:admin123
+
+---
+
 # 📌 Funcionalidades
 
 ### ✔ Autenticação
@@ -160,6 +167,7 @@ const SUPABASE_KEY = "YOUR_SUPABASE_ANON_KEY";
 
 Pedro Hanrri
 Desenvolvedor do sistema e organizador do repositório.
+
 
 
 
